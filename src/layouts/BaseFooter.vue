@@ -1,0 +1,16 @@
+<template>
+  <div class="footer primary-bg">默认底部</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="less" scoped>
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+}
+</style>

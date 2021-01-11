@@ -1,7 +1,9 @@
 * {
   padding: 0;
   margin: 0;
+  color: #333;
 }
+// 颜色
 .danger {
   color: red;
 }
@@ -11,6 +13,11 @@
 .success {
   color: #3eaf7c;
 }
+.warn {
+  color: #ff9933;
+}
+
+// 背景
 .danger-bg {
   background-color: red;
 }
@@ -20,14 +27,45 @@
 .success-bg {
   background-color: #3eaf7c;
 }
+.warn-bg {
+  background-color: #ff9933;
+}
+
+// 布局
 .flex {
   display: flex;
 }
-.flex-center {
+.center-flex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.middle-flex {
+  display: flex;
+  align-items: center;
+}
+.column-flex {
+  display: flex;
+  flex-direction: column;
+}
+.between-flex {
+  display: flex;
+  justify-content: space-between;
+}
 .center {
   text-align: center;
+}
+
+// 字体
+.bold {
+  font-weight: bold;
+}
+.ellipsis {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+a {
+  text-decoration: none;
 }

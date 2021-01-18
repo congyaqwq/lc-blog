@@ -1,6 +1,6 @@
 
 <template>
-  <div class="head middle-flex between-flex">
+  <div ref="head" class="head middle-flex between-flex" :class="fixed?'fixed':''">
     <div class="left middle-flex">
       <div class="avatar">
         <my-image src></my-image>
@@ -22,30 +22,62 @@
         >{{key}}</router-link>
       </div>
     </div>
+    <div class="filter">
+      <div class="icon">
+        <img src="@/static/Filter.svg" alt />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
 
 export default {
   data() {
     return {
-      navMap
+      navMap,
+      fixed: false
     };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.debounceScroll);
+  },
+  methods: {
+    onPageScroll() {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > 200) {
+        this.fixed = true;
+      } else {
+        this.fixed = false;
+      }
+    },
+    debounceScroll() {
+      const scroll = debounce(this.onPageScroll, 300);
+      scroll();
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
 .head {
+  position: relative;
+  top: 0;
   padding: 0 10%;
   width: 100%;
   height: 100px;
   box-sizing: border-box;
-  overflow: hidden;
   background-color: #fff;
   border-bottom: 1px solid #eee;
+  &.fixed {
+    animation: fadeInDown 0.5s linear;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
   .left {
     .avatar {
       margin-right: 10px;
@@ -72,6 +104,15 @@ export default {
           font-weight: bold;
         }
       }
+    }
+  }
+  .filter {
+    position: absolute;
+    bottom: -10px;
+    right: 15%;
+    .icon {
+      width: 20px;
+      height: 20px;
     }
   }
 }

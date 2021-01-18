@@ -21,12 +21,15 @@
 </template>
 
 <script>
-import data from "../data";
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
-    return {
-      data
-    };
+    return {};
   }
 };
 </script>

@@ -42,9 +42,10 @@ export default {
   padding: 0 10%;
   width: 100%;
   height: 100px;
-  color: #fff;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
   .left {
     .avatar {
       margin-right: 10px;

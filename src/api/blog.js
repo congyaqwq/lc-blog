@@ -6,3 +6,9 @@ export function list(params) {
     params
   })
 }
+
+export function detail(id) {
+  return request({
+    url: `blogs/detail/${id}`
+  })
+}

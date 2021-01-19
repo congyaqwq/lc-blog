@@ -12,6 +12,11 @@ export default [
     component: requireView('index')
   },
   {
+    path: '/detail',
+    name: 'blogDetail',
+    component: requireView('detail')
+  },
+  {
     path: '/relationship',
     name: 'relationship',
     component: requireView('relationship')

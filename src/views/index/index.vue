@@ -2,11 +2,14 @@
   <div>
     <search-filter></search-filter>
     <blog-list :data="data"></blog-list>
+    <div class="add-icon" @click="$router.push({name:'blogDetail'})">
+      <img src="@/static/add.svg" alt />
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import * as Api from "@/api/blog";
 import BlogList from "./components/blog-list";
 import SearchFilter from "./components/search-filter";
 export default {
@@ -16,7 +19,11 @@ export default {
   },
   data() {
     return {
-      data: []
+      data: [],
+      payload: {
+        page: 1,
+        per_page: 12
+      }
     };
   },
   mounted() {
@@ -24,9 +31,7 @@ export default {
   },
   methods: {
     async fetchData() {
-      const { data } = await axios({
-        url: "http://localhost:3000/blogs/list"
-      });
+      const { data } = await Api.list(this.payload);
       console.log(data, "Get it!");
       this.data = data;
     }
@@ -34,5 +39,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+.add-icon {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  border-radius: 50%;
+  cursor: pointer;
+}
 </style>

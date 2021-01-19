@@ -1,13 +1,14 @@
 <template>
   <ul class="container column-flex">
     <li v-for="it in data" :key="it.id" class="item">
+      <div class="title ellipsis">{{it.title}}</div>
       <div class="content">{{it.content}}</div>
       <div class="info flex">
         <div class="view-wrap middle-flex">
           <div class="icon">
             <img src="@/static/轮回眼.svg" alt />
           </div>
-          <div class="view">{{it.view}}</div>
+          <div class="view">{{it.views}}</div>
         </div>
         <div class="thumbs-wrap middle-flex">
           <div class="icon">
@@ -43,11 +44,21 @@ export default {
     transition: all 0.5s;
     color: #333;
     &:hover {
-      box-shadow: 3px 3px 10px #ccc;
+      box-shadow: 3px 3px 20px #ccc;
       color: #000;
     }
-    .content {
+    .title {
+      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: bold;
       cursor: pointer;
+    }
+    .content {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      word-break: break-all;
+      overflow: hidden;
     }
   }
 }

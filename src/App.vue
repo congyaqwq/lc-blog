@@ -1,9 +1,12 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <base-header></base-header>
-  <transition name="fade">
-    <router-view class="main-content"></router-view>
-  </transition>
+
+  <router-view class="main-content" v-slot="{ Component }">
+    <transition name="fade">
+      <component :is="Component" />
+    </transition>
+  </router-view>
   <!-- <base-footer></base-footer> -->
 </template>
 
@@ -36,11 +39,12 @@ export default {
 }
 
 // 切换动画
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+.fade-enter-active {
+  transition: opacity 0.3s ease 0.2s;
 }
-
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

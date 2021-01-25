@@ -22,11 +22,11 @@
         >{{key}}</router-link>
       </div>
     </div>
-    <div class="filter">
+    <!-- <div class="filter">
       <div class="icon">
         <img src="@/static/Filter.svg" alt />
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -46,8 +46,7 @@ export default {
   },
   methods: {
     onPageScroll() {
-      const scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
       if (scrollTop > 200) {
         this.fixed = true;
       } else {
@@ -55,7 +54,7 @@ export default {
       }
     },
     debounceScroll() {
-      const scroll = debounce(this.onPageScroll, 300);
+      const scroll = debounce(this.onPageScroll, 200);
       scroll();
     }
   }

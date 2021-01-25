@@ -1,6 +1,6 @@
 <template>
   <ul class="container column-flex">
-    <li v-for="it in data" :key="it.id" class="item">
+    <li v-for="it in data" :key="it.id" class="item" @click="$router.push({query:{id:it.id}, name:'blogDetail'})">
       <div class="title ellipsis">{{it.title}}</div>
       <div class="content">{{it.content}}</div>
       <div class="info flex">

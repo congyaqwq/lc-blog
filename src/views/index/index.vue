@@ -2,9 +2,9 @@
   <div>
     <search-filter></search-filter>
     <blog-list :data="data"></blog-list>
-    <div class="add-icon" @click="$router.push({name:'blogDetail'})">
+    <!-- <div class="add-icon" @click="$router.push({name:'blogDetail'})">
       <img src="@/static/add.svg" alt />
-    </div>
+    </div>-->
   </div>
 </template>
 

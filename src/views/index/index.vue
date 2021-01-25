@@ -1,7 +1,7 @@
 <template>
   <div>
     <search-filter></search-filter>
-    <blog-list :data="data"></blog-list>
+    <blog-list :data="list"></blog-list>
     <!-- <div class="add-icon" @click="$router.push({name:'blogDetail'})">
       <img src="@/static/add.svg" alt />
     </div>-->
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import * as Api from "@/api/blog";
+import useBlog from "@/composables/useBlog";
 import BlogList from "./components/blog-list";
 import SearchFilter from "./components/search-filter";
 export default {
@@ -19,23 +19,19 @@ export default {
   },
   data() {
     return {
-      data: [],
       payload: {
         page: 1,
         per_page: 12
       }
     };
   },
-  mounted() {
-    this.fetchData();
+  setup() {
+    const { list } = useBlog();
+    return {
+      list
+    };
   },
-  methods: {
-    async fetchData() {
-      const { data } = await Api.list(this.payload);
-      console.log(data, "Get it!");
-      this.data = data;
-    }
-  }
+  methods: {}
 };
 </script>
 

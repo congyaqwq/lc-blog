@@ -21,24 +21,30 @@
 
 <script>
 import * as Api from "@/api/blog";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   data() {
-    const { id } = this.$route.query;
+    return {};
+  },
+  setup() {
+    const route = useRoute();
+    const data = ref({});
+    const { id } = route.query;
+    const fetchData = async () => {
+      const { data: detail } = await Api.detail(id);
+      data.value = detail;
+    };
+
+    onMounted(fetchData);
+
     return {
-      id,
-      data: {}
+      data,
+      fetchData
     };
   },
-  mounted() {
-    this.id && this.fetchData();
-  },
-  methods: {
-    async fetchData() {
-      const { data } = await Api.detail(this.id);
-      this.data = data;
-    }
-  }
+  methods: {}
 };
 </script>
 

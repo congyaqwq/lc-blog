@@ -12,7 +12,6 @@ export default function () {
     page,
     per_page
   })
-  console.log(payload, 1)
 
   const fetchData = async () => {
     const { data } = await Api.list(payload.value)

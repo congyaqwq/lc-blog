@@ -2,16 +2,19 @@
   <div>
     <search-filter></search-filter>
     <blog-list :data="list"></blog-list>
-    <!-- <div class="add-icon" @click="$router.push({name:'blogDetail'})">
-      <img src="@/static/add.svg" alt />
-    </div>-->
+    <div v-if="top > 500" class="top-icon" @click="toTop">
+      <img src="@/static/top.svg" alt />
+    </div>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+
 import useBlog from "@/composables/useBlog";
 import BlogList from "./components/blog-list";
 import SearchFilter from "./components/search-filter";
+
 export default {
   components: {
     BlogList,
@@ -27,16 +30,27 @@ export default {
   },
   setup() {
     const { list } = useBlog();
+    const top = ref(0);
+    function onPageScroll() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      top.value = scrollTop;
+    }
+    window.addEventListener("scroll", onPageScroll);
     return {
-      list
+      list,
+      top
     };
   },
-  methods: {}
+  methods: {
+    toTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.add-icon {
+.top-icon {
   position: fixed;
   bottom: 100px;
   right: 100px;
@@ -46,5 +60,6 @@ export default {
   background-color: #333;
   border-radius: 50%;
   cursor: pointer;
+  animation: fade 0.5s;
 }
 </style>

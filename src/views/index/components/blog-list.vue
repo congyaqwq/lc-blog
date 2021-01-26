@@ -36,16 +36,45 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@borderColor: rgba(150, 150, 150, 0.7);
+
 .container {
   .item {
+    position: relative;
     padding: 15px 20px;
     margin: 5px 0;
     background-color: #fff;
     transition: all 0.5s;
     color: #333;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      transition: all 0.6s;
+      border-radius: 1px;
+    }
+    &::before {
+      top: -2px;
+      left: -2px;
+      border-top: 1px solid @borderColor;
+      border-left: 1px solid @borderColor;
+    }
+    &::after {
+      bottom: -2px;
+      right: -2px;
+      border-bottom: 1px solid @borderColor;
+      border-right: 1px solid @borderColor;
+    }
     &:hover {
       box-shadow: 3px 3px 20px #ccc;
       color: #000;
+      &::before,
+      &::after {
+        width: calc(100% + 3px);
+        height: calc(100% + 2px);
+      }
     }
     .title {
       margin-bottom: 5px;

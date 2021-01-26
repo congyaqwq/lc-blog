@@ -90,16 +90,17 @@ export default {
     .nav-bar {
       height: 100%;
       .item {
+        position: relative;
+        width: 110px;
         padding: 35px 20px;
         line-height: 30px;
         cursor: pointer;
         transition: all 0.3s;
+        box-sizing: border-box;
         &.active {
           font-weight: bold;
         }
         &:hover {
-          background-color: rgba(0, 204, 255, 0.5);
-          color: #fff;
           font-weight: bold;
         }
       }

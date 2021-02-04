@@ -6,6 +6,7 @@ import * as Api from "@/api/blog"
 export default function () {
   const route = useRoute()
   const list = ref([])
+  const total = ref(0)
   const { page = 1 } = route.query
   const per_page = 12
   const payload = ref({
@@ -13,9 +14,10 @@ export default function () {
     per_page
   })
 
-  const fetchData = async () => {
-    const { data } = await Api.list(payload.value)
-    list.value = data
+  const fetchData = async (fixedData = {}) => {
+    const { list: resList, total: resTotal } = await Api.list({ ...payload.value, ...fixedData })
+    list.value = list.value.concat(resList)
+    total.value = resTotal
   }
 
   onMounted(fetchData)
@@ -23,6 +25,7 @@ export default function () {
   return {
     list,
     payload,
+    total,
     fetchData
   }
 

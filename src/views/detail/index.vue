@@ -23,6 +23,7 @@
 import * as Api from "@/api/blog";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import marked from "marked";
 
 export default {
   data() {
@@ -33,7 +34,8 @@ export default {
     const data = ref({});
     const { id } = route.query;
     const fetchData = async () => {
-      const { data: detail } = await Api.detail(id);
+      let detail = await Api.detail(id);
+      detail.content = marked(detail.content);
       data.value = detail;
     };
 

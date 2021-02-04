@@ -1,5 +1,5 @@
 <template>
-  <div class="img-container" :style="{width,height}">
+  <div class="img-container" :style="{width:`${width}px`,height:`${height}px`}">
     <img v-if="src" :src="src" alt />
     <span v-else>🈚️</span>
   </div>
@@ -13,11 +13,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 100
+      default: 80
     },
     height: {
       type: Number,
-      default: 100
+      default: 80
     }
   }
 };
@@ -25,6 +25,9 @@ export default {
 
 <style lang="less" scoped>
 .img-container {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
   img {
     width: 100%;
     height: 100%;

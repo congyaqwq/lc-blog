@@ -2,14 +2,15 @@
   <div>
     <search-filter></search-filter>
     <blog-list :data="list"></blog-list>
-    <div v-if="top > 500" class="top-icon" @click="toTop">
+    <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
+    <div v-if="top > 500&&!isMobile()" class="top-icon" @click="toTop">
       <img src="@/static/top.svg" alt />
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 import useBlog from "@/composables/useBlog";
 import BlogList from "./components/blog-list";
@@ -21,24 +22,30 @@ export default {
     SearchFilter
   },
   data() {
-    return {
-      payload: {
-        page: 1,
-        per_page: 12
-      }
-    };
+    return {};
   },
   setup() {
-    const { list } = useBlog();
+    const { list, payload, fetchData, total } = useBlog();
     const top = ref(0);
+    const hasMore = computed(() => total.value > list.value.length);
     function onPageScroll() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const getWindowHeight = document.documentElement.clientHeight;
+      const getDocumentTop = document.documentElement.offsetHeight;
       top.value = scrollTop;
+
+      if (scrollTop + getWindowHeight >= getDocumentTop) {
+        if (!hasMore.value) return;
+        fetchData({ ...payload.value, page: payload.value.page + 1 });
+      }
     }
     window.addEventListener("scroll", onPageScroll);
     return {
+      hasMore,
       list,
-      top
+      top,
+      payload,
+      fetchData
     };
   },
   methods: {
@@ -61,5 +68,9 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   animation: fade 0.5s;
+}
+.bottom {
+  padding: 30px 0;
+  text-align: center;
 }
 </style>

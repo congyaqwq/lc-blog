@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <input :value="keyword" type="text" @input="changeText" />
+    <input :value="keyword" type="text" @input="changeText" @keyup.enter="$emit('search')" />
     <img class="icon" src="@/static/search.svg" alt />
     <div class="search-btn" @click="$emit('search')">搜索</div>
   </div>
@@ -64,6 +64,7 @@ export default {
     border-left: 1px solid #ccc;
     font-size: 14px;
     cursor: pointer;
+    user-select: none;
   }
 }
 </style>

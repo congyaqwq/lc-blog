@@ -1,6 +1,6 @@
 <template>
   <div class="img-container" :style="{width:`${width}px`,height:`${height}px`}">
-    <img v-if="src" :src="src" alt />
+    <img v-if="src" :src="src" alt :title="title" />
     <span v-else>🈚️</span>
   </div>
 </template>
@@ -9,6 +9,9 @@
 export default {
   props: {
     src: {
+      type: String
+    },
+    title: {
       type: String
     },
     width: {

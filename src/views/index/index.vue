@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 import useBlog from "@/composables/useBlog";
 import BlogList from "./components/blog-list";
@@ -25,18 +25,17 @@ export default {
     return {};
   },
   setup() {
-    const { list, payload, fetchData, total } = useBlog();
+    const { list, payload, fetchData, hasMore } = useBlog();
     const top = ref(0);
-    const hasMore = computed(() => total.value > list.value.length);
     function onPageScroll() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const getWindowHeight = document.documentElement.clientHeight;
       const getDocumentTop = document.documentElement.offsetHeight;
       top.value = scrollTop;
-
+      // 到底部了
       if (scrollTop + getWindowHeight >= getDocumentTop) {
         if (!hasMore.value) return;
-        fetchData({ ...payload.value, page: payload.value.page + 1 });
+        fetchData({ ...payload, page: payload.page + 1 });
       }
     }
     window.addEventListener("scroll", onPageScroll);

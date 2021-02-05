@@ -3,12 +3,12 @@
   <div ref="head" class="head middle-flex between-flex" :class="fixed?'fixed':''">
     <div class="left middle-flex">
       <div class="avatar">
-        <my-image :src="require('@/static/youdoa.png')"></my-image>
+        <my-image title="莱纳你坐啊" :src="require('@/static/youdoa.png')"></my-image>
       </div>
       <div class="column-flex">
-        <div class="name bold">Name</div>
+        <div class="name bold">{{config.USERNAME}}</div>
         <!-- Front End Engineer -->
-        <div class="work">abc</div>
+        <div class="work">{{config.JOB}}</div>
       </div>
       <my-search v-model:keyword="keyword" @search="search"></my-search>
     </div>
@@ -39,26 +39,26 @@
         >{{key}}</router-link>
       </div>
     </div>
-    <!-- <div class="filter">
-      <div class="icon">
-        <img src="@/static/Filter.svg" alt />
-      </div>
-    </div>-->
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
+import config from "@/config";
 
 export default {
   emits: ["fixed", "cancel"],
   setup() {
     const route = useRoute();
-    const { keyword: key = "" } = route.query;
-    const keyword = ref(key);
+    const keyword = ref("");
+    onMounted(() => {
+      setTimeout(() => {
+        keyword.value = route.query.keyword;
+      }, 100);
+    });
     const fixed = ref(false);
     const visible = ref(false);
     return {
@@ -69,7 +69,8 @@ export default {
   },
   data() {
     return {
-      navMap
+      navMap,
+      config
     };
   },
   mounted() {
@@ -101,7 +102,6 @@ export default {
     },
     search() {
       const { keyword } = this;
-      console.log(keyword);
       this.$router.replace({
         path: "/",
         query: {

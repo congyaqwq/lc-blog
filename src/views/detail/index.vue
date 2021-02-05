@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="blog-detail">
     <h1 class="title">{{data.title}}</h1>
     <div class="info flex">
       <div class="view-wrap middle-flex">
@@ -51,6 +51,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.blog-detail {
+  width: 100%;
+  box-sizing: border-box;
+}
 .info {
   margin-top: 30px;
   .view-wrap {

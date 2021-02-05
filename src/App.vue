@@ -1,8 +1,12 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <base-header></base-header>
-
-  <router-view class="main-content" v-slot="{ Component }">
+  <base-header @fixed="onFixed" @cancel="onCancel"></base-header>
+  <router-view
+    class="main-content"
+    v-slot="{ Component }"
+    :class="isFixed?'fixed':''"
+    :style="{top:`-${top -(fixed?0:100)}px`}"
+  >
     <transition name="fade">
       <component :is="Component" />
     </transition>
@@ -12,6 +16,7 @@
 
 <script>
 import BaseHeader from "./layouts/BaseHeader";
+import { ref } from "vue";
 // import BaseFooter from "./layouts/BaseFooter";
 
 export default {
@@ -20,8 +25,38 @@ export default {
     BaseHeader
     // BaseFooter
   },
+  setup() {
+    const isFixed = ref(false);
+    const fixed = ref(false);
+    const top = ref(0);
+
+    window.addEventListener("scroll", onPageScroll);
+    function onPageScroll() {
+      if (isFixed.value) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      top.value = scrollTop;
+    }
+    return {
+      isFixed,
+      top,
+      fixed
+    };
+  },
   data() {
     return {};
+  },
+  methods: {
+    onCancel() {
+      this.isFixed = false;
+      this.fixed = false;
+      this.$nextTick(() => {
+        window.scrollTo({ top: this.top });
+      });
+    },
+    onFixed(fixed) {
+      this.isFixed = true;
+      this.fixed = fixed;
+    }
   }
 };
 </script>
@@ -33,8 +68,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   .main-content {
-    position: relative;
     padding: 30px 15%;
+    width: 100%;
+    box-sizing: border-box;
+    &.fixed {
+      position: fixed;
+    }
   }
 }
 

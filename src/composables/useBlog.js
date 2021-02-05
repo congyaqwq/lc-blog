@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 
 import * as Api from "@/api/blog"
@@ -7,11 +7,13 @@ export default function () {
   const route = useRoute()
   const list = ref([])
   const total = ref(0)
-  const { page = 1 } = route.query
+  const { page = 1, keyword: key = "" } = route.query
+  const keyword = ref(key)
   const per_page = 12
-  const payload = ref({
+  const payload = reactive({
     page,
-    per_page
+    per_page,
+    keyword
   })
 
   const fetchData = async (fixedData = {}) => {

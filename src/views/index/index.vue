@@ -3,7 +3,7 @@
     <search-filter></search-filter>
     <blog-list :data="list"></blog-list>
     <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
-    <div v-if="top > 500&&!isMobile()" class="top-icon" @click="toTop">
+    <div :class="(top > 500&&!isMobile())?'':'hidden'" class="top-icon" @click="toTop">
       <img src="@/static/top.svg" alt />
     </div>
   </div>
@@ -67,7 +67,11 @@ export default {
   background-color: #333;
   border-radius: 50%;
   cursor: pointer;
-  animation: fade 0.5s;
+  transition: opacity 0.5s;
+  opacity: 1;
+  &.hidden {
+    opacity: 0;
+  }
 }
 .bottom {
   padding: 30px 0;

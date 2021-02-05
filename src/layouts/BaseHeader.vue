@@ -10,6 +10,7 @@
         <!-- Front End Engineer -->
         <div class="work">abc</div>
       </div>
+      <my-search v-model:keyword="keyword" @search="search"></my-search>
     </div>
     <div v-if="!isMobile()" class="right">
       <div class="nav-bar middle-flex">
@@ -26,7 +27,7 @@
       <img src="@/static/功能.svg" />
     </div>
     <div v-if="visible" class="mobile-menu">
-      <div class="bg" @click="visible=false"></div>
+      <div class="bg" @click="hideMenu"></div>
       <div class="menu">
         <router-link
           :to="{name: value}"
@@ -34,7 +35,7 @@
           :key="key"
           class="center-flex item"
           :class="$route.name===value?'active':''"
-          @click="visible = false"
+          @click="hideMenu('link')"
         >{{key}}</router-link>
       </div>
     </div>
@@ -47,15 +48,28 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
 
 export default {
+  emits: ["fixed", "cancel"],
+  setup() {
+    const route = useRoute();
+    const { keyword: key = "" } = route.query;
+    const keyword = ref(key);
+    const fixed = ref(false);
+    const visible = ref(false);
+    return {
+      keyword,
+      fixed,
+      visible
+    };
+  },
   data() {
     return {
-      navMap,
-      fixed: false,
-      visible: false
+      navMap
     };
   },
   mounted() {
@@ -76,6 +90,24 @@ export default {
     },
     showMenu() {
       this.visible = true;
+      this.$emit("fixed", this.fixed);
+    },
+    hideMenu(type) {
+      if (type === "link") {
+        window.scrollTo(0, 0);
+      }
+      this.visible = false;
+      this.$emit("cancel");
+    },
+    search() {
+      const { keyword } = this;
+      console.log(keyword);
+      this.$router.replace({
+        path: "/",
+        query: {
+          keyword
+        }
+      });
     }
   }
 };
@@ -91,8 +123,9 @@ export default {
   box-sizing: border-box;
   background-color: #fff;
   border-bottom: 1px solid #eee;
+  z-index: 2;
   &.fixed {
-    animation: fadeInDown 0.5s linear;
+    animation: fadeInDown 0.3s linear;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -124,15 +157,6 @@ export default {
           font-weight: bold;
         }
       }
-    }
-  }
-  .filter {
-    position: absolute;
-    bottom: -10px;
-    right: 15%;
-    .icon {
-      width: 20px;
-      height: 20px;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div v-if="!isMobile()" class="search">
     <input :value="keyword" type="text" @input="changeText" @keyup.enter="$emit('search')" />
     <img class="icon" src="@/static/search.svg" alt />
     <div class="search-btn" @click="$emit('search')">搜索</div>
@@ -61,8 +61,9 @@ export default {
     height: 100%;
     text-align: center;
     line-height: 30px;
-    border-left: 1px solid #ccc;
+    // border-left: 1px solid #ccc;
     font-size: 14px;
+    border-radius: 12px;
     cursor: pointer;
     user-select: none;
   }

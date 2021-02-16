@@ -54,21 +54,18 @@ export default {
   setup() {
     const route = useRoute();
     const keyword = ref("");
+    const fixed = ref(false);
+    const visible = ref(false);
+
     onMounted(() => {
       setTimeout(() => {
         keyword.value = route.query.keyword;
       }, 100);
     });
-    const fixed = ref(false);
-    const visible = ref(false);
     return {
       keyword,
       fixed,
-      visible
-    };
-  },
-  data() {
-    return {
+      visible,
       navMap,
       config
     };
@@ -164,6 +161,10 @@ export default {
 @media (max-width: 768px) {
   .head {
     padding: 0 5%;
+    position: fixed;
+    &.fixed {
+      animation: none;
+    }
     .mobile {
       img {
         width: 30px;

@@ -1,6 +1,6 @@
 <template>
   <ul class="container column-flex">
-    <li v-for="it in data" :key="it.id" class="item" @click="$router.push({query:{id:it.id}, name:'blogDetail'})">
+    <li v-for="it in data" :key="it.id" class="item">
       <div class="title ellipsis">{{it.title}}</div>
       <div class="content">{{it.content}}</div>
       <div class="info flex">
@@ -10,9 +10,10 @@
           </div>
           <div class="view">{{it.views}}</div>
         </div>
-        <div class="thumbs-wrap middle-flex">
+        <div class="thumbs-wrap middle-flex" @click.stop="thumb(it)">
           <div class="icon">
-            <img src="@/static/点赞.svg" alt />
+            <img v-if="it.is_thumb" src="@/static/点赞_fill.svg" alt />
+            <img v-else src="@/static/点赞.svg" alt />
           </div>
           <div class="thumbs">{{it.thumbs}}</div>
         </div>
@@ -22,7 +23,10 @@
 </template>
 
 <script>
+import * as Api from "@/api/blog";
+
 export default {
+  emits: ["change"],
   props: {
     data: {
       type: Array,
@@ -31,6 +35,12 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    async thumb({ id }) {
+      await Api.thumb({ blog_id: id });
+      this.$emit("change");
+    }
   }
 };
 </script>
@@ -60,12 +70,14 @@ export default {
       left: -2px;
       border-top: 1px solid @borderColor;
       border-left: 1px solid @borderColor;
+      z-index: -1;
     }
     &::after {
       bottom: -2px;
       right: -2px;
       border-bottom: 1px solid @borderColor;
       border-right: 1px solid @borderColor;
+      z-index: -1;
     }
     &:hover {
       box-shadow: 3px 3px 20px #ccc;

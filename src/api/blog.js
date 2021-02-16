@@ -12,3 +12,11 @@ export function detail(id) {
     url: `blogs/detail/${id}`
   })
 }
+
+export function thumb(data) {
+  return request({
+    url: `thumb`,
+    method: 'put',
+    data
+  })
+}

@@ -5,7 +5,7 @@
     class="main-content"
     v-slot="{ Component }"
     :class="isFixed?'fixed':''"
-    :style="{top:`-${top -(fixed?0:100)}px`,paddingTop:isMobile()?'100px':'0'}"
+    :style="{top:`-${top -(fixed?0:100)}px`,paddingTop:isMobile()?'130px':'30px'}"
   >
     <transition name="fade">
       <component :is="Component" />

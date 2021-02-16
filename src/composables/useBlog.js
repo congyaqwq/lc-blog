@@ -23,7 +23,7 @@ export default function () {
   })
 
   const fetchData = async (fixedData = {}) => {
-    const { list: resList, total: resTotal } = await Api.list({ ...payload.value, ...fixedData })
+    const { list: resList, total: resTotal } = await Api.list({ ...payload, ...fixedData })
     list.value = list.value.concat(resList)
     total.value = resTotal
   }

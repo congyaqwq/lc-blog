@@ -60,7 +60,7 @@ export default {
     onMounted(() => {
       setTimeout(() => {
         keyword.value = route.query.keyword;
-      }, 100);
+      }, 200);
     });
     return {
       keyword,

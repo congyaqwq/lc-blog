@@ -22,7 +22,10 @@ export default function () {
     fetchData({ keyword, page: 1 })
   })
 
-  const fetchData = async (fixedData = {}) => {
+  const fetchData = async (fixedData = {}, init = false) => {
+    if (init) {
+      list.value = []
+    }
     const { list: resList, total: resTotal } = await Api.list({ ...payload, ...fixedData })
     list.value = list.value.concat(resList)
     total.value = resTotal

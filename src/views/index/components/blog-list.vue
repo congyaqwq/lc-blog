@@ -37,9 +37,11 @@ export default {
     return {};
   },
   methods: {
-    async thumb({ id }) {
-      await Api.thumb({ blog_id: id });
-      this.$emit("change");
+    async thumb(record) {
+      const { id, is_thumb } = record;
+      await Api.thumb({ blog_id: id, is_thumb });
+      record.is_thumb = !is_thumb;
+      record.thumbs += is_thumb ? -1 : 1;
     }
   }
 };

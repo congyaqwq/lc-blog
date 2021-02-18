@@ -1,7 +1,8 @@
 <template>
   <div>
     <search-filter></search-filter>
-    <blog-list :data="list" @change="fetchData({page: 1})"></blog-list>
+    <!--  @change="fetchData({page: 1},true)" -->
+    <blog-list :data="list"></blog-list>
     <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
     <div :class="(top > 500&&!isMobile())?'':'hidden'" class="top-icon" @click="toTop">
       <img src="@/static/top.svg" alt />

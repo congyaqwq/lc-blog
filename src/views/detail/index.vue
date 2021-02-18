@@ -8,9 +8,10 @@
         </div>
         <div class="view">{{data.views}}</div>
       </div>
-      <div class="thumbs-wrap middle-flex">
+      <div class="thumbs-wrap middle-flex" @click="thumb">
         <div class="icon">
-          <img src="@/static/点赞.svg" alt />
+          <img v-if="data.is_thumb" src="@/static/点赞_fill.svg" alt />
+          <img v-else src="@/static/点赞.svg" alt />
         </div>
         <div class="thumbs">{{data.thumbs}}</div>
       </div>
@@ -46,7 +47,14 @@ export default {
       fetchData
     };
   },
-  methods: {}
+  methods: {
+    async thumb() {
+      const { id, is_thumb } = this.data;
+      await Api.thumb({ blog_id: id, is_thumb });
+      this.data.is_thumb = !is_thumb;
+      this.data.thumbs += is_thumb ? -1 : 1;
+    }
+  }
 };
 </script>
 

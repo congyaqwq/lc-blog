@@ -4,8 +4,11 @@
   <router-view
     class="main-content"
     v-slot="{ Component }"
-    :class="isFixed?'fixed':''"
-    :style="{top:`-${top -(fixed?0:100)}px`,paddingTop:isMobile()?'130px':'30px'}"
+    :class="isFixed ? 'fixed' : ''"
+    :style="{
+      top: `-${top - (fixed ? 0 : 100)}px`,
+      paddingTop: isMobile() ? '130px' : '30px',
+    }"
   >
     <transition name="fade">
       <component :is="Component" />
@@ -22,7 +25,7 @@ import { ref } from "vue";
 export default {
   name: "App",
   components: {
-    BaseHeader
+    BaseHeader,
     // BaseFooter
   },
   setup() {
@@ -39,7 +42,7 @@ export default {
     return {
       isFixed,
       top,
-      fixed
+      fixed,
     };
   },
   data() {
@@ -56,8 +59,8 @@ export default {
     onFixed(fixed) {
       this.isFixed = true;
       this.fixed = fixed;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -68,7 +71,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   .main-content {
-    padding: 30px 15%;
+    padding: 30px 10%;
     width: 100%;
     box-sizing: border-box;
     &.fixed {

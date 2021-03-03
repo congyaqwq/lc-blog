@@ -9,10 +9,13 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
+// const baseURL = process.env.NODE_ENV == 'production' ? 'http://172.22.22.30:3000/' : 'http://localhost:3000/'
+const baseURL = process.env.NODE_ENV == 'production' ? 'http://39.103.137.10:3000/' : 'http://localhost:3000/'
+
 export default function (options = {}) {
   const { method = 'get', url, data, params } = options
   return axios({
-    baseURL: 'http://localhost:3000/',
+    baseURL: baseURL,
     method,
     url,
     data,

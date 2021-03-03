@@ -1,10 +1,16 @@
 <template>
   <div>
-    <search-filter></search-filter>
     <!--  @change="fetchData({page: 1},true)" -->
-    <blog-list :data="list"></blog-list>
+    <div class="flex">
+      <blog-list class="blog-list" :data="list"></blog-list>
+      <search-filter @change="fetchData($event, true)"></search-filter>
+    </div>
     <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
-    <div :class="(top > 500&&!isMobile())?'':'hidden'" class="top-icon" @click="toTop">
+    <div
+      :class="top > 500 && !isMobile() ? '' : 'hidden'"
+      class="top-icon"
+      @click="toTop"
+    >
       <img src="@/static/top.svg" alt />
     </div>
   </div>
@@ -20,7 +26,7 @@ import SearchFilter from "./components/search-filter";
 export default {
   components: {
     BlogList,
-    SearchFilter
+    SearchFilter,
   },
   data() {
     return {};
@@ -45,14 +51,14 @@ export default {
       list,
       top,
       payload,
-      fetchData
+      fetchData,
     };
   },
   methods: {
     toTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -76,5 +82,8 @@ export default {
 .bottom {
   padding: 30px 0;
   text-align: center;
+}
+.blog-list {
+  flex: 1;
 }
 </style>

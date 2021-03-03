@@ -1,10 +1,105 @@
 <template>
-  <div></div>
+  <div ref="tag" class="tag-list">
+    <div class="tag-wrap flex" :class="isFixed ? 'fixed' : ''">
+      <div
+        v-for="it in list"
+        :key="it.id"
+        class="tag-item"
+        :class="current == it.id ? 'active' : ''"
+        @click="findByTag(it)"
+      >
+        {{ it.name }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+
+import * as Api from "@/api/tags";
+
+export default {
+  emits: ["change"],
+  setup() {
+    const route = useRoute();
+    const { tags = "" } = route.query;
+    const current = ref(tags);
+    watch(
+      () => route.query,
+      (query) => {
+        const { tags = "" } = query;
+        current.value = tags;
+      }
+    );
+    const list = ref([]);
+    const top = ref(0);
+    const isFixed = ref(false);
+    const fetchData = async () => {
+      const { list: tagsList } = await Api.list();
+      list.value = tagsList;
+      list.value.unshift({ id: "", name: "全部" });
+    };
+    return { list, top, isFixed, fetchData, current };
+  },
+  mounted() {
+    this.fetchData();
+    window.addEventListener("scroll", this.onPageScroll);
+  },
+  methods: {
+    onPageScroll() {
+      if (!this.$refs.tag) return;
+      const top = this.$refs.tag.getBoundingClientRect().top;
+      // this.top = window.scrollY || document.documentElement.scrollTop;
+      if (top < -200) {
+        this.isFixed = true;
+      } else {
+        this.isFixed = false;
+      }
+    },
+    findByTag({ id }) {
+      this.$router.replace({ query: { tags: id } });
+      this.$emit("change", { tags: id });
+    },
+  },
+};
 </script>
 
-<style>
+<style lang="less" scoped>
+.tag-list {
+  height: fit-content;
+  width: 300px;
+  margin-left: 20px;
+  .tag-wrap {
+    flex-wrap: wrap;
+    width: 300px;
+    height: fit-content;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 12px;
+    &.fixed {
+      position: fixed;
+      top: 130px;
+      right: calc(10% - 20px);
+      animation: fade 0.8s;
+    }
+  }
+  .tag-item {
+    text-align: center;
+    padding: 5px 10px;
+    min-width: 50px;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+      font-weight: bold;
+    }
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
 </style>

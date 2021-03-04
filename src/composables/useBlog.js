@@ -29,9 +29,8 @@ export default function () {
   }
 
   watch([keyword, tags], ([keyword = "", tags = ""]) => {
-    console.log(keyword, 1, tags)
     list.value = []
-    fetchData({ keyword, page: 1, tags })
+    fetchData({ keyword, page: 1, tags }, true)
   })
 
 

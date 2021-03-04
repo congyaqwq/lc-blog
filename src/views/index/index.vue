@@ -3,10 +3,7 @@
     <!--  @change="fetchData({page: 1},true)" -->
     <div class="flex">
       <blog-list class="blog-list" :data="list"></blog-list>
-      <search-filter
-        v-if="!isMobile()"
-        @change="fetchData($event, true)"
-      ></search-filter>
+      <search-filter v-if="!isMobile()"></search-filter>
     </div>
     <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
     <div

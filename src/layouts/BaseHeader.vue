@@ -1,26 +1,34 @@
 
 <template>
-  <div ref="head" class="head middle-flex between-flex" :class="fixed?'fixed':''">
+  <div
+    ref="head"
+    class="head middle-flex between-flex"
+    :class="fixed ? 'fixed' : ''"
+  >
     <div class="left middle-flex">
       <div class="avatar">
-        <my-image title="莱纳你坐啊" :src="require('@/static/youdoa.png')"></my-image>
+        <my-image
+          title="莱纳你坐啊"
+          :src="require('@/static/youdoa.png')"
+        ></my-image>
       </div>
       <div class="column-flex">
-        <div class="name bold">{{config.USERNAME}}</div>
+        <div class="name bold">{{ config.USERNAME }}</div>
         <!-- Front End Engineer -->
-        <div class="work">{{config.JOB}}</div>
+        <div class="work">{{ config.JOB }}</div>
       </div>
       <my-search v-model:keyword="keyword" @search="search"></my-search>
     </div>
     <div v-if="!isMobile()" class="right">
       <div class="nav-bar middle-flex">
         <router-link
-          :to="{name: value}"
-          v-for="(value,key) in navMap"
+          :to="{ name: value }"
+          v-for="(value, key) in navMap"
           :key="key"
           class="center-flex item"
-          :class="$route.name===value?'active':''"
-        >{{key}}</router-link>
+          :class="$route.name === value ? 'active' : ''"
+          >{{ key }}</router-link
+        >
       </div>
     </div>
     <div v-else class="mobile" @click="showMenu">
@@ -30,13 +38,18 @@
       <div class="bg" @click="hideMenu"></div>
       <div class="menu">
         <router-link
-          :to="{name: value}"
-          v-for="(value,key) in navMap"
+          :to="{ name: value }"
+          v-for="(value, key) in navMap"
           :key="key"
           class="center-flex item"
-          :class="$route.name===value?'active':''"
+          :class="$route.name === value ? 'active' : ''"
           @click="hideMenu('link')"
-        >{{key}}</router-link>
+          >{{ key }}</router-link
+        >
+        <search-filter
+          v-if="$route.name == 'index'"
+          @change="hideMenu"
+        ></search-filter>
       </div>
     </div>
   </div>
@@ -48,8 +61,12 @@ import { useRoute } from "vue-router";
 import { debounce } from "lodash";
 import { navMap } from "@/constants/user";
 import config from "@/config";
+import SearchFilter from "@/views/index/components/search-filter";
 
 export default {
+  components: {
+    SearchFilter,
+  },
   emits: ["fixed", "cancel"],
   setup() {
     const route = useRoute();
@@ -67,7 +84,7 @@ export default {
       fixed,
       visible,
       navMap,
-      config
+      config,
     };
   },
   mounted() {
@@ -102,11 +119,11 @@ export default {
       this.$router.replace({
         path: "/",
         query: {
-          keyword
-        }
+          keyword,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

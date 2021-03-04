@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onPageScroll() {
-      if (!this.$refs.tag) return;
+      if (!this.$refs.tag || this.isMobile()) return;
       const top = this.$refs.tag.getBoundingClientRect().top;
       // this.top = window.scrollY || document.documentElement.scrollTop;
       if (top < -200) {
@@ -99,6 +99,15 @@ export default {
     }
     &.active {
       font-weight: bold;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .tag-list {
+    margin-top: 30px;
+    width: 60%;
+    .tag-wrap {
+      width: 100%;
     }
   }
 }

@@ -9,17 +9,14 @@ export default function () {
   const total = ref(0)
   const { page = 1 } = route.query
   const keyword = computed(() => route.query.keyword)
+  const tags = computed(() => route.query.tags)
   const hasMore = computed(() => total.value > list.value.length)
   const per_page = 12
   const payload = reactive({
     page,
     per_page,
-    keyword
-  })
-
-  watch(keyword, (keyword) => {
-    list.value = []
-    fetchData({ keyword, page: 1 })
+    keyword,
+    tags
   })
 
   const fetchData = async (fixedData = {}, init = false) => {
@@ -30,6 +27,13 @@ export default function () {
     list.value = list.value.concat(resList)
     total.value = resTotal
   }
+
+  watch([keyword, tags], ([keyword = "", tags = ""]) => {
+    console.log(keyword, 1, tags)
+    list.value = []
+    fetchData({ keyword, page: 1, tags })
+  })
+
 
   onMounted(fetchData)
 

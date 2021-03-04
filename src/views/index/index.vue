@@ -3,7 +3,10 @@
     <!--  @change="fetchData({page: 1},true)" -->
     <div class="flex">
       <blog-list class="blog-list" :data="list"></blog-list>
-      <search-filter @change="fetchData($event, true)"></search-filter>
+      <search-filter
+        v-if="!isMobile()"
+        @change="fetchData($event, true)"
+      ></search-filter>
     </div>
     <div v-if="!hasMore" class="bottom">暂时没有更多啦～</div>
     <div
@@ -85,5 +88,10 @@ export default {
 }
 .blog-list {
   flex: 1;
+}
+@media (max-width: 768px) {
+  .blog-list {
+    width: 100%;
+  }
 }
 </style>

@@ -37,9 +37,9 @@ export default {
     const top = ref(0);
     const isFixed = ref(false);
     const fetchData = async () => {
+      list.value = [{ id: "", name: "全部" }];
       const { list: tagsList } = await Api.list();
-      list.value = tagsList;
-      list.value.unshift({ id: "", name: "全部" });
+      list.value = list.value.concat(tagsList);
     };
     return { list, top, isFixed, fetchData, current };
   },
@@ -71,6 +71,7 @@ export default {
   height: fit-content;
   width: 300px;
   margin-left: 20px;
+  min-height: 40px;
   .tag-wrap {
     flex-wrap: wrap;
     width: 300px;

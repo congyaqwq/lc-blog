@@ -7,4 +7,9 @@ const router = createRouter({
   routes // short for `routes: routes`
 })
 
+router.beforeEach((to, from, next) => {
+  window.document.title = to.meta ? to.meta.title : 'lc-template'
+  next()
+})
+
 export default router

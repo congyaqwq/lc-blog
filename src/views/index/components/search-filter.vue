@@ -109,6 +109,9 @@ export default {
     width: 60%;
     .tag-wrap {
       width: 100%;
+      .tag-item {
+        width: 100%;
+      }
     }
   }
 }

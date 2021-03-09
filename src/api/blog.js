@@ -10,7 +10,7 @@ if (!user_id) {
 export function list(params) {
 
   return request({
-    url: 'blogs/list',
+    url: 'blogs/frontlist',
     params: { ...params, user_id },
   })
 }

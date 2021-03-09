@@ -81,6 +81,7 @@ export default {
 }
 .bottom {
   padding: 30px 0;
+  margin-right: 300px;
   text-align: center;
 }
 .blog-list {
@@ -89,6 +90,9 @@ export default {
 @media (max-width: 768px) {
   .blog-list {
     width: 100%;
+  }
+  .bottom {
+    margin-right: 0px;
   }
 }
 </style>

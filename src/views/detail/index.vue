@@ -1,19 +1,19 @@
 <template>
   <div class="blog-detail">
-    <h1 class="title">{{data.title}}</h1>
+    <h1 class="title">{{ data.title }}</h1>
     <div class="info flex">
       <div class="view-wrap middle-flex">
         <div class="icon">
           <img src="@/static/轮回眼.svg" alt />
         </div>
-        <div class="view">{{data.views}}</div>
+        <div class="view">{{ data.views }}</div>
       </div>
       <div class="thumbs-wrap middle-flex" @click="thumb">
         <div class="icon">
           <img v-if="data.is_thumb" src="@/static/点赞_fill.svg" alt />
           <img v-else src="@/static/点赞.svg" alt />
         </div>
-        <div class="thumbs">{{data.thumbs}}</div>
+        <div class="thumbs">{{ data.thumbs }}</div>
       </div>
     </div>
     <section class="content" v-html="data.content"></section>
@@ -44,7 +44,7 @@ export default {
 
     return {
       data,
-      fetchData
+      fetchData,
     };
   },
   methods: {
@@ -53,8 +53,8 @@ export default {
       await Api.thumb({ blog_id: id, is_thumb });
       this.data.is_thumb = !is_thumb;
       this.data.thumbs += is_thumb ? -1 : 1;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -72,6 +72,7 @@ export default {
 .content {
   display: block;
   margin-top: 30px;
+  line-height: 1.8;
 }
 
 .icon {

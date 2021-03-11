@@ -14,19 +14,19 @@
       <component :is="Component" />
     </transition>
   </router-view>
-  <!-- <base-footer></base-footer> -->
+  <base-footer></base-footer>
 </template>
 
 <script>
 import BaseHeader from "./layouts/BaseHeader";
 import { ref } from "vue";
-// import BaseFooter from "./layouts/BaseFooter";
+import BaseFooter from "./layouts/BaseFooter";
 
 export default {
   name: "App",
   components: {
     BaseHeader,
-    // BaseFooter
+    BaseFooter,
   },
   setup() {
     const isFixed = ref(false);

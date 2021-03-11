@@ -1,5 +1,5 @@
 <template>
-  <div class="footer primary-bg">默认底部</div>
+  <div class="footer center-flex">默认底部</div>
 </template>
 
 <script>

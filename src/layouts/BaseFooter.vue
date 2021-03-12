@@ -8,7 +8,6 @@ export default {};
 
 <style lang="less" scoped>
 .footer {
-  margin-top: -60px;
   bottom: 0;
   height: 60px;
   width: 100%;

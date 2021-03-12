@@ -73,10 +73,18 @@ export default {
   .main-content {
     padding: 30px 10%;
     width: 100%;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 160px);
     box-sizing: border-box;
     &.fixed {
       position: fixed;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #app {
+    .main-content {
+      min-height: calc(100vh - 60px);
     }
   }
 }

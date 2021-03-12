@@ -73,6 +73,7 @@ export default {
   .main-content {
     padding: 30px 10%;
     width: 100%;
+    min-height: calc(100vh - 60px);
     box-sizing: border-box;
     &.fixed {
       position: fixed;

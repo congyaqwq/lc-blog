@@ -1,5 +1,7 @@
 <template>
-  <div class="footer center-flex">默认底部</div>
+  <div class="footer center-flex">
+    <a target="_blank" href="https://beian.miit.gov.cn"> 赣ICP备2021002067号</a>
+  </div>
 </template>
 
 <script>

@@ -10,7 +10,7 @@ axios.interceptors.response.use(function (response) {
 })
 
 // const baseURL = process.env.NODE_ENV == 'production' ? 'http://172.22.22.30:3000/' : 'http://localhost:3000/'
-const baseURL = process.env.NODE_ENV == 'production' ? 'http://www.congyaqwq.top/api/' : 'http://localhost:3000/'
+const baseURL = process.env.NODE_ENV == 'production' ? 'http://www.congyaqwq.top/api/' : 'http://localhost:3000/api/'
 
 export default function (options = {}) {
   const { method = 'get', url, data, params } = options

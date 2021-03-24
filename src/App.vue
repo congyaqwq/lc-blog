@@ -1,19 +1,21 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <base-header @fixed="onFixed" @cancel="onCancel"></base-header>
-  <router-view
-    class="main-content"
-    v-slot="{ Component }"
-    :class="isFixed ? 'fixed' : ''"
-    :style="{
-      top: `-${top - (fixed ? 0 : 100)}px`,
-      paddingTop: isMobile() ? '130px' : '30px',
-    }"
-  >
-    <transition name="fade">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <main class="main">
+    <router-view
+      class="main-content"
+      v-slot="{ Component }"
+      :class="isFixed ? 'fixed' : ''"
+      :style="{
+        top: `-${top - (fixed ? 0 : 100)}px`,
+        paddingTop: isMobile() ? '130px' : '30px',
+      }"
+    >
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </main>
   <base-footer></base-footer>
 </template>
 
@@ -99,5 +101,9 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.main > .main-content:nth-child(2) {
+  display: none;
 }
 </style>

@@ -8,7 +8,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  window.document.title = to.meta ? to.meta.title : 'lc-template'
+  window.document.title = to.meta && to.meta.title ? to.meta.title : 'lc-template'
   next()
 })
 

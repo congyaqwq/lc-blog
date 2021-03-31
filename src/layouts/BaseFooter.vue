@@ -1,6 +1,8 @@
 <template>
   <div class="footer center-flex">
-    <a target="_blank" href="https://beian.miit.gov.cn"> 赣ICP备2021002067号</a>
+    <a target="_blank" href="https://beian.miit.gov.cn">
+      赣ICP备2021002067号-1</a
+    >
   </div>
 </template>
 
